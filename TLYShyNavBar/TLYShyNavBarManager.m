@@ -121,6 +121,8 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 
 @property (nonatomic, readonly) BOOL isViewControllerVisible;
 
+@property (assign, nonatomic, readwrite) CGFloat navigationBarHeight;
+
 @end
 
 @implementation TLYShyNavBarManager
