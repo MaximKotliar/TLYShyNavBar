@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 
 
+static NSString * const TLYShyNavBarDidUpdateNavBarHeightNotificationName = @"TLYShyNavBarDidUpdateNavBarHeightNotification";
+
 /** This enum helps control the navigation bar fade behavior.
  *  NOTE: It is duplicated in the ShyNavController header for now.
  */
@@ -78,6 +80,12 @@ typedef NS_ENUM(NSInteger, TLYShyNavBarFade) {
  * Defaults to NO
  */
 @property (nonatomic) BOOL disable;
+
+
+/* Navigation bar height
+ */
+@property (assign, nonatomic, readonly) CGFloat navigationBarHeight;
+
 
 @end
 

@@ -350,6 +350,7 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
     }
     
     self.previousYOffset = self.scrollView.contentOffset.y;
+    [self updateNavigationBarHeightValue];
 }
 
 - (void)_handleScrollingEnded
@@ -370,6 +371,17 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
                      animations:^{
                          self.scrollView.contentOffset = newContentOffset;
                      }];
+    [self updateNavigationBarHeightValue];
+}
+
+- (void)updateNavigationBarHeightValue {
+    if (self.extensionView) {
+        CGFloat barHeight = self.extensionViewContainer.frame.origin.y + CGRectGetHeight(self.extensionViewContainer.frame);
+        if (barHeight != self.navigationBarHeight) {
+            self.navigationBarHeight = barHeight;
+            [[NSNotificationCenter defaultCenter] postNotificationName:TLYShyNavBarDidUpdateNavBarHeightNotificationName object:self];
+        }
+    }
 }
 
 #pragma mark - KVO
@@ -481,11 +493,13 @@ static void * const kTLYShyNavBarManagerKVOContext = (void*)&kTLYShyNavBarManage
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
     [self.navBarController expand];
+    [self updateNavigationBarHeightValue];
 }
 
 - (void)applicationDidChangeStatusBarFrame:(NSNotification *)notification
 {
     [self.navBarController expand];
+    [self updateNavigationBarHeightValue];
 }
 
 @end
